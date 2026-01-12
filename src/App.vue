@@ -1,43 +1,36 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-const items = ref<string[]>(['Item 1', 'Item 2', 'Item 3']);
-const nestedItems = ref<string[][]>([
-  ['Nested Item 1.1', 'Nested Item 1.2'],
-  ['Nested Item 2.1', 'Nested Item 2.2'],
-]);
-const myObject = reactive({
-  title: 'How to do lists in Vue',
-  author: 'Jane Doe',
-  publishedAt: '2016-04-10'
-})
+
+const count = ref(0)
+
+function reduceByTwo(event: Event) {
+  count.value = count.value - 2;
+}
+
+function say(message: string) {
+  alert(message);
+}
 
 </script>
 
 <template>
   <div class="bg-yellow-200 flex flex-col justify-center h-screen p-4">
-    <ul>
-      <li v-for="(item, index) in items" :key="index">{{ item }}</li>
-    </ul>
-    <div class="mt-4">
-      <div v-for="(sublist, subIndex) in nestedItems" :key="subIndex" class="mb-2">
-        <strong>Sublist {{ subIndex + 1 }}:</strong>
-        <ul>
-          <li v-for="(subItem, itemIndex) in sublist" :key="itemIndex">{{ subItem }}</li>
-        </ul>
-      </div>
-    </div>
-    <div class="mt-4">
-      <ul>
-        <li v-for="(value, key) in myObject" :key="key">
-          {{ key }} : {{ value }}
-        </li>
-      </ul>
-    </div>
-
+    <button
+      class="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      @click="count++"
+    >
+      Increment Count
+    </button>
+    <button
+      class="bg-red-500 text-white px-4 py-2 rounded mb-4"
+      @click="reduceByTwo"
+    >
+      Decrement Count by 2
+    </button>
+    <p> Count is : {{ count }}</p>
+    <button @click="say('hello')" class="bg-green-500 text-white px-4 py-2 rounded my-2">Say hello</button>
+    <button @click="say('bye')" class="bg-red-500 text-white px-4 py-2 rounded my-2">Say bye</button>
   </div>
-
-
-
 </template>
 
 <style scoped></style>
