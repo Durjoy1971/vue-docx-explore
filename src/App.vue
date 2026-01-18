@@ -1,29 +1,20 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
+import ButtonCounter from './components/ButtonCounter.vue'
+import BlogPost from './components/BlogPost.vue'
 
-const message = ref('')
-const another_msg = ref('')
-const state = reactive({
-  multiline: '',
-  checked: false,
-})
+const posts = ref([
+  { id: 1, title: 'My journey with Vue' },
+  { id: 2, title: 'Blogging with Vue' },
+  { id: 3, title: 'Why Vue is so fun' },
+])
 </script>
 
 <template>
   <div class="bg-yellow-200 flex flex-col justify-center h-screen p-4 gap-4">
-    <p>Message is: {{ message }}</p>
-    <input v-model="message" placeholder="edit me" class="border max-w-lg" />
-    <p>Another Message is: {{ another_msg }}</p>
-    <input :value="another_msg" @input="(event) => (another_msg = (event.target as HTMLInputElement).value)"
-      placeholder="edit me too" class="border max-w-lg" />
-
-    <span>Multiline message is: {{ state.multiline }}</span>
-    <textarea v-model="state.multiline" placeholder="add multiple lines" class="border max-w-md px-2 py-1"></textarea>
-
-    <div class="flex  gap-4">
-      <input type="checkbox" id="checkbox" v-model="state.checked" />
-      <label for="checkbox">{{ state.checked }}</label>
-    </div>
+    <h1>Here is a child component</h1>
+    <ButtonCounter />
+    <BlogPost v-for="post in posts" :key="post.id" :title="post.title" />
   </div>
 </template>
 
